@@ -7,14 +7,14 @@ namespace BitzawolfRPG
 {
     public class Attributes
     {
-        private int health { get; set; }
-        private int mana { get; set; }
-        private int strength { get; set; }
-        private int intelligence { get; set; }
-        private int agility { get; set; }
-        private int defense { get; set; }
-        private int resitance { get; set; }
-        private int experience { get; set; }
+        public int health { get; private set; }
+        public int mana { get; private set; }
+        public int strength { get; private set; }
+        public int intelligence { get; private set; }
+        public int agility { get; private set; }
+        public int defense { get; private set; }
+        public int resitance { get; private set; }
+        public int experience { get; private set; }
 
         public Attributes(int hp = 0, int mp = 0, int str = 0, int agi = 0, int def = 0, int res = 0, int exp = 0)
         {
@@ -27,7 +27,7 @@ namespace BitzawolfRPG
             experience = exp;
         }
 
-        public static Attributes operator +(Attribute a, Attribute b)
+        public static Attributes operator +(Attributes a, Attributes b)
         {
             return new Attributes(
                 a.health + b.health,
@@ -40,12 +40,12 @@ namespace BitzawolfRPG
             );
         }
 
-        public static Attributes operator -(Attribute a, Attribute b)
+        public static Attributes operator -(Attributes a, Attributes b)
         {
             return a + (b * -1);
         }
 
-        public static Attributes operator *(Attribute a, int scalar)
+        public static Attributes operator *(Attributes a, int scalar)
         {
             return new Attributes(
                 a.health * scalar,
@@ -56,6 +56,25 @@ namespace BitzawolfRPG
                 a.resitance * scalar,
                 a.experience * scalar
             );
+        }
+
+        public static bool operator ==(Attributes a, Attributes b)
+        {
+            return (
+                a.health == b.health &&
+                a.mana == b.mana &&
+                a.agility == b.agility &&
+                a.defense == b.defense &&
+                a.experience == b.experience &&
+                a.intelligence == b.intelligence &&
+                a.resitance == b.resitance &&
+                a.strength == b.strength
+            );
+        }
+
+        public static bool operator !=(Attributes a, Attributes b)
+        {
+            return (!(a == b));
         }
     }
 }
