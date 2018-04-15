@@ -3,16 +3,30 @@
  * and can gain Effects like those from being hit by a weapon or spell.
  */
 
+using UnityEngine;
 using System.Collections;
 
 namespace BitzawolfRPG
 {
-    public class Creature
+    public class Creature : MonoBehaviour
     {
-        protected Attributes baseAttributes;
+        protected Attributes baseAttributes = new Attributes();
         private ArrayList listOfEffects = new ArrayList();
 
-        public Creature(Attributes attributes)
+        /**
+         * Returns a copy of this creature's base attributes. The copy is to ensure
+         * that the creature's attributes cannot be modified outside of this class.
+         */
+        public Attributes getBaseAttributes()
+        {
+            return baseAttributes.clone();
+        }
+
+        /**
+         * Sets the creature's base attributes to match the attributes passed in.
+         * Any previous base attributes are permanently lost.
+         */
+        public void setBaseAttributes(Attributes attributes)
         {
             baseAttributes = attributes.clone();
         }
@@ -42,9 +56,19 @@ namespace BitzawolfRPG
             return current;
         }
 
-        public void addEffect(Effect e)
+        public void addEffect(Effect newEffect)
         {
-            listOfEffects.Add(e);
+            foreach (Effect curEffect in listOfEffects)
+            {
+                if (curEffect.combine(newEffect))
+                    return;
+            }
+            listOfEffects.Add(newEffect);
+        }
+
+        public bool isDead()
+        {
+            return (getCurrentAttributes().health <= 0);
         }
     }
 }

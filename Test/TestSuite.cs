@@ -9,6 +9,17 @@ namespace BitzawolfRPG
             testAttributes();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                foreach (Creature c in FindObjectsOfType<Creature>())
+                {
+                    Debug.Log(c.gameObject.name + " - HP:" + c.getCurrentAttributes().health);
+                }
+            }
+        }
+
         private void testAttributes()
         {
             Debug.Log("------------------");

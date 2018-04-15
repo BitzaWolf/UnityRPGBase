@@ -15,6 +15,6 @@ public class FireballSpell : MonoBehaviour
     private void onHit(GameObject go)
     {
         Debug.Log("Fireball hit " + go.name);
-        //go.GetComponent<Creature>().addEffect(new DamageEffect(10));
+        go.GetComponent<Creature>().addEffect(new DamageHealthEffect(10));
     }
 }

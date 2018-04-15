@@ -30,5 +30,22 @@ namespace BitzawolfRPG
         protected string description { get; set; }
 
         abstract public Attributes getAttributeChange();
+
+        /**
+         * Combines another effect into this one, returning true if the effect was
+         * successfully added into this effect. This is to enable situations where
+         * a creature could be given two similar Effects and it would make more sense
+         * to combine them into a single stronger effect instead of having two nearly identical
+         * effects at the same time.
+         * 
+         * For example, if the creature had a poison effect and a new poison effect
+         * should be added, we could combine them such that the first poison effect
+         * becomes stronger (or gets its duration refreshed) then the new poison
+         * effect would get deleted.
+         */
+        virtual public bool combine(Effect other)
+        {
+            return false;
+        }
     }
 }
