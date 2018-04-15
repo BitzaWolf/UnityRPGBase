@@ -16,11 +16,12 @@ namespace BitzawolfRPG
         public int resitance { get; private set; }
         public int experience { get; private set; }
 
-        public Attributes(int hp = 0, int mp = 0, int str = 0, int agi = 0, int def = 0, int res = 0, int exp = 0)
+        public Attributes(int hp = 0, int mp = 0, int str = 0, int intel = 0, int agi = 0, int def = 0, int res = 0, int exp = 0)
         {
             health = hp;
             mana = mp;
             strength = str;
+            intelligence = intel;
             agility = agi;
             defense = def;
             resitance = res;
@@ -33,6 +34,7 @@ namespace BitzawolfRPG
                 a.health + b.health,
                 a.mana + b.mana,
                 a.strength + b.strength,
+                a.intelligence + b.intelligence,
                 a.agility + b.agility,
                 a.defense + b.defense,
                 a.resitance + b.resitance,
@@ -51,6 +53,7 @@ namespace BitzawolfRPG
                 a.health * scalar,
                 a.mana * scalar,
                 a.strength * scalar,
+                a.intelligence * scalar,
                 a.agility * scalar,
                 a.defense * scalar,
                 a.resitance * scalar,
@@ -63,18 +66,47 @@ namespace BitzawolfRPG
             return (
                 a.health == b.health &&
                 a.mana == b.mana &&
+                a.strength == b.strength &&
+                a.intelligence == b.intelligence &&
                 a.agility == b.agility &&
                 a.defense == b.defense &&
-                a.experience == b.experience &&
-                a.intelligence == b.intelligence &&
                 a.resitance == b.resitance &&
-                a.strength == b.strength
+                a.experience == b.experience
             );
         }
 
         public static bool operator !=(Attributes a, Attributes b)
         {
             return (!(a == b));
+        }
+
+        public Attributes clone()
+        {
+            return new Attributes(
+                health,
+                mana,
+                strength,
+                intelligence,
+                agility,
+                defense,
+                resitance,
+                experience
+            );
+        }
+
+        public override bool Equals(object other)
+        {
+            if (other is Attributes)
+            {
+                Attributes otherAttr = (Attributes)other;
+                return (this == otherAttr);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

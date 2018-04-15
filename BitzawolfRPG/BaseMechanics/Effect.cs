@@ -24,7 +24,7 @@
  */
 namespace BitzawolfRPG
 {
-    abstract class Effect
+    public abstract class Effect
     {
         protected string name { get; set; }
         protected string description { get; set; }

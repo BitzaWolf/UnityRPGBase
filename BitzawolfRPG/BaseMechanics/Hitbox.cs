@@ -26,22 +26,15 @@ namespace BitzawolfRPG
 
     public class Hitbox : MonoBehaviour
     {
-        private ArrayList targetsHit;
-        private ArrayList validTargetTags;
+        private ArrayList targetsHit = new ArrayList();
+        private ArrayList validTargetTags = new ArrayList();
 
         /**
          * An Event spells/attacks can listen to so they can apply
          * Effects to the target this hitbox collides with. This
          * function provides the GameObject that got struck.
          */
-        public CollisionEvent onCollision;
-
-        void Start()
-        {
-            targetsHit = new ArrayList();
-            validTargetTags = new ArrayList();
-            onCollision = new CollisionEvent();
-        }
+        public CollisionEvent onCollision = new CollisionEvent();
 
         /**
          * Specifies the tag is a valid target for this hitbox and
@@ -60,13 +53,13 @@ namespace BitzawolfRPG
         {
             validTargetTags.Remove(tag);
         }
-        
-        void onCollisionEnterOnCollisionEnter(Collision collision)
+
+        private void OnTriggerEnter(Collider other)
         {
-            if (validTargetTags.Contains(collision.gameObject.tag) && !targetsHit.Contains(collision.gameObject))
+            if (validTargetTags.Contains(other.gameObject.tag) && !targetsHit.Contains(other.gameObject))
             {
-                targetsHit.Add(collision.gameObject);
-                onCollision.Invoke(collision.gameObject);
+                targetsHit.Add(other.gameObject);
+                onCollision.Invoke(other.gameObject);
             }
         }
     }
