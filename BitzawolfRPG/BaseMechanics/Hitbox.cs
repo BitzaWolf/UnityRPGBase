@@ -26,6 +26,8 @@ namespace BitzawolfRPG
 
     public class Hitbox : MonoBehaviour
     {
+        public AudioClip hitSoundeffect = null;
+
         private ArrayList targetsHit = new ArrayList();
         private ArrayList validTargetTags = new ArrayList();
 
@@ -58,6 +60,10 @@ namespace BitzawolfRPG
         {
             if (validTargetTags.Contains(other.gameObject.tag) && !targetsHit.Contains(other.gameObject))
             {
+                if (hitSoundeffect != null)
+                {
+                    AudioSource.PlayClipAtPoint(hitSoundeffect, other.gameObject.transform.position);
+                }
                 targetsHit.Add(other.gameObject);
                 onCollision.Invoke(other.gameObject);
             }
